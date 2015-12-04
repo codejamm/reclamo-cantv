@@ -5,8 +5,8 @@ cantv o inter dependiendo del caso por medio de un tweet.
 
 ## Requsitos
 
-1. Instalar (speedtest-cli)[https://github.com/sivel/speedtest-cli]
-2. Instalar y configurar el cliente de twitter (t)[https://github.com/sferik/t]
+1. Instalar speedtest-cli https://github.com/sivel/speedtest-cli]
+2. Instalar y configurar el cliente de twitter t https://github.com/sferik/t
 
 ## Uso 
 
