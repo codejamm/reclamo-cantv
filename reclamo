@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# Script para chequear la velocidad del internet
+# y de ser menor a un valor establecido 
+# enviar tweet al proveedor de internet.
+
+# Es neceseario instalar speedtest-cli
+# y el cliente de twitter para terminal t
+
+# Proveedor de internet opciones: cantv e inter 
+proveedor="cantv"
+
+# Velocidad ofertada por tu proveedor en Mbps
+velocidad_maxima="6"
+
+# Velocidad efectiva minima con la cual comparar
+# para enviar tweet de reclamo
+velocidad_minima="4"
+
+
+case $proveedor in
+	cantv)
+	       message="Mi plan es ABA $velocidad_maxima Mbps y esta es la velocidad que presenta al momento: "
+	       twitter_user="@contactocantv"
+	;;
+	inter)
+	       message="Mi plan $velocidad_maxima Mbps ilimitado y esta es la velocidad que presenta al momento: "
+         twitter_user="@InterCliente"
+	;;
+	*)
+	echo 'No tengo ese proveedor registrado' >&2 
+  exit 1
+esac
+
+speed_test=$(/usr/local/bin/speedtest-cli --simple | grep -i download)
+donwload_speed=${speed_test#*: }
+donwload_speed=${donwload_speed%.*}
+
+# Debug
+#echo "$speed_test"
+#echo "$donwload_speed"
+#echo "$twitter_user"
+#echo "$message"
+
+if ((donwload_speed < velocidad_minima )); then
+	/Users/jamm/.rbenv/shims/t update "$message $speed_test $twitter_user"
+fi
